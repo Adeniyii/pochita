@@ -4,20 +4,36 @@ import { loggerLink } from "@trpc/client/links/loggerLink";
 import { withTRPC } from "@trpc/next";
 import { SessionProvider } from "next-auth/react";
 import superjson from "superjson";
-import type { AppType } from "next/app";
+import type { AppProps, AppType } from "next/app";
 import type { AppRouter } from "../server/router";
-import type { Session } from "next-auth";
 import "../styles/globals.css";
+import AuthGuard from "../components/AuthGuard";
+import NoAuth from "../components/NoAuth";
 
-const MyApp: AppType<{ session: Session | null }> = ({
-  Component,
-  pageProps: { session, ...pageProps },
-}) => {
-  console.log("wan bissakka")
-  return (
-    <SessionProvider session={session}>
-      <Component {...pageProps} />
-    </SessionProvider>
+
+const MyApp = ({ Component, pageProps }: AppProps) => {
+  if (Component?.isAuth) {
+    return (
+      <SessionProvider>
+        <AuthGuard>
+          <Component {...pageProps} />
+        </AuthGuard>
+      </SessionProvider>
+      );
+    }
+
+    if (Component?.noAuth) {
+      return (
+        <SessionProvider>
+          <NoAuth>
+            <Component {...pageProps} />
+          </NoAuth>
+        </SessionProvider>
+      )
+    }
+
+    return (
+    <Component {...pageProps} />
   );
 };
 
