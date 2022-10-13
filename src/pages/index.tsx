@@ -25,6 +25,9 @@ const Home = () => {
       <Link href="/dashboard" passHref>
         <a className="text-blue-500">dashboard</a>
       </Link>
+      <Link href="/app" passHref>
+        <a className="text-blue-500">app</a>
+      </Link>
     </Wrapper>
   );
 };
