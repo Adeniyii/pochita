@@ -17,6 +17,20 @@ export const authOptions: NextAuthOptions = {
       return session;
     },
   },
+  events: {
+    async createUser(message) {
+      const proff = await prisma.profile.create({
+        data: {userId: message.user.id}
+      })
+      console.log("======= profile: ", proff)
+    },
+    async signIn(message) {
+      console.log("======= signin user: ", message)
+    },
+    async signOut(message) {
+      console.log("======= signout user: ", message)
+    }
+  },
   // Configure one or more authentication providers
   adapter: PrismaAdapter(prisma),
   providers: [
