@@ -1,6 +1,10 @@
 import { ComponentProps, Dispatch, Fragment, SetStateAction } from "react";
 import { Dialog, Transition } from "@headlessui/react";
-import { CheckIcon } from "@heroicons/react/24/outline";
+import { FolderIcon } from "@heroicons/react/24/outline";
+import Input from "./Input";
+import Radio from "./Radio";
+import ComboBox from "./ComboBox";
+import TextArea from "./TextArea";
 
 interface IProps extends ComponentProps<"div"> {
   open: boolean;
@@ -45,38 +49,43 @@ export default function CreateProjectModal({ open, setOpen }: IProps) {
             leaveFrom="opacity-100 translate-y-0 sm:scale-100"
             leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
           >
-            <div className="relative inline-block transform overflow-hidden rounded-lg bg-zinc-800 px-4 pt-5 pb-4 text-left align-bottom shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-sm sm:p-6 sm:align-middle">
-              <div>
-                <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-green-100">
-                  <CheckIcon
-                    className="h-6 w-6 text-green-600"
-                    aria-hidden="true"
-                  />
-                </div>
-                <div className="mt-3 text-center sm:mt-5">
+            <div className="relative inline-block transform overflow-hidden rounded-lg bg-zinc-800 pt-5 pb-4 text-left align-bottom shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-xl sm:p-6 sm:align-middle">
+              <div className="min-h-[75vh] max-h-[75vh] overflow-y-auto px-4">
+                <div className="text-center sm:mt-5">
                   <Dialog.Title
                     as="h3"
-                    className="text-lg font-medium leading-6 text-zinc-100"
+                    className="text-lg flex items-center justify-center font-semibold leading-6 text-zinc-100"
                   >
-                    Payment successful
+                    <FolderIcon className="h-6 w-6 mr-2" aria-hidden="true" />
+                    Create a project
                   </Dialog.Title>
-                  <div className="mt-2">
-                    <p className="text-sm text-zinc-500">
-                      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                      Consequatur amet labore.
-                    </p>
+                  <div className="mt-10">
+                    <form className="flex flex-col gap-5">
+                      <Input label="name" id="name" name="name" type="text" required />
+                      <TextArea label="description" id="description" name="description" required />
+                      <div className="pt-5" />
+                      <Radio />
+                      <ComboBox />
+                    </form>
                   </div>
                 </div>
               </div>
-              <div className="mt-5 sm:mt-6">
-                <button
-                  type="button"
-                  className="inline-flex w-full justify-center rounded-md border border-transparent bg-indigo-600 px-4 py-2 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 sm:text-sm"
-                  onClick={() => setOpen(false)}
-                >
-                  Go back to dashboard
-                </button>
-              </div>
+							<div className="mt-5 sm:mt-6 flex items-center justify-between">
+								<button
+									type="button"
+									className="inline-flex justify-center rounded-md border border-transparent bg-transparent px-3 py-1 text-base font-medium text-white hover:bg-zinc-700 focus:outline-none sm:text-sm"
+									// onClick={() => setOpen(false)}
+								>
+									back
+								</button>
+								<button
+									type="button"
+									className="inline-flex justify-center rounded-md border border-transparent bg-rose-600 px-3 py-1 text-base font-semibold text-white hover:bg-rose-700 focus:outline-none sm:text-sm"
+									onClick={() => setOpen(false)}
+								>
+									Create
+								</button>
+							</div>
             </div>
           </Transition.Child>
         </div>

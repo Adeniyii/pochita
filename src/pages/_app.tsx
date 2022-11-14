@@ -14,7 +14,7 @@ import NoAuth from "../components/NoAuth";
 const MyApp = ({ Component, pageProps }: AppProps) => {
   if (Component?.isAuth) {
     return (
-      <SessionProvider>
+      <SessionProvider refetchInterval={0} refetchOnWindowFocus={false}>
         <AuthGuard>
           <Component {...pageProps} />
         </AuthGuard>
@@ -24,7 +24,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
 
     if (Component?.noAuth) {
       return (
-        <SessionProvider>
+        <SessionProvider refetchInterval={0} refetchOnWindowFocus={false}>
           <NoAuth>
             <Component {...pageProps} />
           </NoAuth>
